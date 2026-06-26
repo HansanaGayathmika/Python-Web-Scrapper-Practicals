@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 import requests
 
-search_item = input("What product do yuo want to search for? ")
+search_item = input("What product do you want to search for? ")
 
 url = f"https://www.newegg.com/p/pl?d={search_item}&N=4131"
 
