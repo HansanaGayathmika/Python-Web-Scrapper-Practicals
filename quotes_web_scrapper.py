@@ -17,6 +17,3 @@ with open(r"C:\Users\Hansana\Desktop\web_scrapper\quotes.csv", "w")as file:
         tags = quote.find_all("a", class_="tag")
         for tag in tags:
             file.write(f"{tag.text}\n")
-
-        # for tag in tags:
-        #     return tag
