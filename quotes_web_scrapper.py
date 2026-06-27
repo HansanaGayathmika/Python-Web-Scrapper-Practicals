@@ -11,8 +11,10 @@ quotes = doc.find_all(class_="quote")
 for quote in quotes:
     text = quote.find('span').string
     author = quote.find(class_="author").string
-    tags = quote.find(class_="tag").string
+
     print(text)
     print(author)
-    print(tags)
+    tags = quote.find_all("a", class_="tag")
+    for tag in tags:
+        print(tag.text)
     print()
