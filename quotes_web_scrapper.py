@@ -8,13 +8,15 @@ doc = BeautifulSoup(page, "html.parser")
 
 quotes = doc.find_all(class_="quote")
 
-for quote in quotes:
-    text = quote.find('span').string
-    author = quote.find(class_="author").string
+with open(r"C:\Users\Hansana\Desktop\web_scrapper\quotes.csv", "w")as file:
+    for quote in quotes:
+        text = quote.find('span').string
+        author = quote.find(class_="author").string
+        file.write(f"{text}\n")
+        file.write(f"{author}\n")
+        tags = quote.find_all("a", class_="tag")
+        for tag in tags:
+            file.write(f"{tag.text}\n")
 
-    print(text)
-    print(author)
-    tags = quote.find_all("a", class_="tag")
-    for tag in tags:
-        print(tag.text)
-    print()
+        # for tag in tags:
+        #     return tag
