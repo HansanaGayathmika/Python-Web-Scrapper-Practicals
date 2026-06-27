@@ -1,19 +1,29 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = "http://quotes.toscrape.com/"
+base_url = "http://quotes.toscrape.com/"
+url = "/"
 
-page = requests.get(url).text
-doc = BeautifulSoup(page, "html.parser")
+with open(r"C:\\Users\\Hansana\\Desktop\\web_scrapper\\quotes.csv", "w", encoding="utf-8")as file:
+    while url:
+        page = requests.get(base_url + url).text
+        doc = BeautifulSoup(page, "html.parser")
 
-quotes = doc.find_all(class_="quote")
+        quotes = doc.find_all(class_="quote")
 
-with open(r"C:\Users\Hansana\Desktop\web_scrapper\quotes.csv", "w")as file:
-    for quote in quotes:
-        text = quote.find('span').string
-        author = quote.find(class_="author").string
-        file.write(f"{text}\n")
-        file.write(f"{author}\n")
-        tags = quote.find_all("a", class_="tag")
-        for tag in tags:
-            file.write(f"{tag.text}\n")
+        for quote in quotes:
+            text = quote.find('span').text
+            author = quote.find(class_="author").text
+            file.write(f"{text}\n")
+            file.write(f"{author}\n")
+            tags = quote.find_all("a", class_="tag")
+            for tag in tags:
+                file.write(f"{tag.text}\n")
+
+            file.write("\n")
+
+        page_text = doc.find(class_="next")
+        if page_text:
+            url = page_text.find('a')['href']
+        else:
+            url = None
