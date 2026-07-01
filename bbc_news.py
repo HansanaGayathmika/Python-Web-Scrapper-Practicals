@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from selenium import webdriver
+from scrapping8 import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,6 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import time
 import schedule
+from datetime import datetime
 
 
 def scrape_news():
@@ -25,6 +26,12 @@ def scrape_news():
         doc = BeautifulSoup(driver.page_source, 'html.parser')
 
         headlines = doc.find_all("h2", attrs={"data-testid": "card-headline"})
+
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        file.write(f"{"="*40}\n")
+        file.write(f"Scraped on: {now}\n")
+        file.write(f"{"="*40}\n\n")
 
         for headline in headlines:
             file.write(f"{headline.text.strip()}\n")

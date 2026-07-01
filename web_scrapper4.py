@@ -1,4 +1,4 @@
-from selenium import webdriver
+from scrapping8 import webdriver
 from bs4 import BeautifulSoup
 
 driver = webdriver.Chrome()
